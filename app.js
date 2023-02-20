@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 
 // make a request API
 // api key: pk_de72058f3cf24bada9cc1576bbe0a0f7
-function call_api(finishedAPI, ticker) {
+function call_api(finishedAPI, ticker = 'rdfvf') {
     request('https://cloud.iexapis.com/stable/stock/'+ticker+'/quote?token=pk_de72058f3cf24bada9cc1576bbe0a0f7', {json: true}, (err, res, body) => {
         if (err) {
             return console.log(err)
@@ -38,9 +38,9 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     call_api(function(doneAPI) {
-        posted_stuff = req.body.stock_ticker,
+        posted_stuff = req.body.stock_ticker
         res.render('home', {
-            stock: doneAPI
+            stock: doneAPI,
         })
     }, req.body.stock_ticker)
 })
